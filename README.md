@@ -22,4 +22,10 @@ Estudando a disciplina de compiladores, descobri que possuo certa dificuldade na
 - /execute
 
 ## Comandos importantes:
+- Para iniciar o projeto:
+    1. Download do repositório: ```git clone https://github.com/NailsonChagas/LR-Parser-Table-Generator.git```
+    2. Acesse o repositório: ```cd LR-Parser-Table-Generator```
+    3. Criar ambiente virtual: ```python3 -m venv venv```
+    4. Abrir ambiente virtual: ```source ./venv/bin/activate```
+    5. Instalar requisitos: ```pip install -r requirements.txt```
 - Para salvar requisitos: ```pip freeze > requirements.txt```
