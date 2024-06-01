@@ -9,12 +9,17 @@ Estudando a disciplina de compiladores, descobri que possuo certa dificuldade na
 ## Quais são as rotas desta API?
 - /table/<parser_type>
     - parser_type pode ser slr, lr ou lalr
+    - O post request deve conter uma lista com as produções da linguagem, com cada símbolo separado por um espaço, exemplo:
+        ```
+        {
+            "productions": [
+                "E' -> E",
+                "E -> E + n",
+                "E -> n"
+            ]
+        }
+        ```
 - /execute
 
-## Quais informações devem estar contidas no request da API?
-- Uma lista indicando quais caracteres são as variáveis
-- Uma lista indicando quais caracteres são os terminais
-- Uma lista com as produções da linguagem
-
 ## Comandos importantes:
-- Salvar requisitos: ```pip freeze > requirements.txt```
+- Para salvar requisitos: ```pip freeze > requirements.txt```
