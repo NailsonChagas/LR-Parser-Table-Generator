@@ -7,9 +7,9 @@ O objetivo deste projeto é criar o backend de uma aplicação que irá gerar ta
 Estudando a disciplina de compiladores, descobri que possuo certa dificuldade na geração das tabelas. Acredito que implementar uma ferramenta capaz de gerar as tabelas automaticamente, seguindo passo a passo do que eu faria à mão, irá me permitir entender melhor o funcionamento do algoritmo e me dará um método de checar as respostas dos exercícios que fiz e que não possuem gabaritos.
 
 ## Quais são as rotas desta API?
-- /parser/slr
-- /parser/lr
-- /parser/lalr
+- /table/<parser_type>
+    - parser_type pode ser slr, lr ou lalr
+- /execute
 
 ## Quais informações devem estar contidas no request da API?
 - Uma lista indicando quais caracteres são as variáveis
