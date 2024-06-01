@@ -39,7 +39,6 @@ def calculate_first(productions: list[list[str]], terminals: list[str], variable
     Returns:
     dict: Um dicionário onde as chaves são as variáveis e os valores são listas dos símbolos em seus conjuntos FIRST.
     """
-
     first_set = {var: set() for var in variables}
     aux_terminals = [t for t in terminals if t != "ε"]
 
@@ -76,22 +75,17 @@ def calculate_first(productions: list[list[str]], terminals: list[str], variable
 
     while True:
         updated = False
-
         for prod in productions:
             left, right = prod[0], prod[1:]
-
             add_epsilon = True  
             for symbol in right:
                 f = __first_of(symbol)
                 updated |= __add_to_first_set(left, f - {"ε"})
-
                 if "ε" not in f:  # símbolo não produz ε, atualiza a flag e sai do loop
                     add_epsilon = False
                     break
-
             if add_epsilon: # todas simbolos da produção produzem ε, adicionar ε a FIRST(left)
                 updated |= __add_to_first_set(left, {"ε"})
-
         if not updated: # Nenhum conjunto FIRST foi atualizado, terminar execução
             break
     return {k: list(v) for k, v in first_set.items()}
