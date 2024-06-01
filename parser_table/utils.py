@@ -96,7 +96,7 @@ def calculate_first(productions: list[list[str]], terminals: list[str], variable
             break
     return {k: list(v) for k, v in first_set.items()}
 
-def follow():
+def calculate_follow():
     pass
 
 if __name__ == "__main__":
