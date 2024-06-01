@@ -26,3 +26,9 @@ def split_productions(productions: list[str]):
                 variables.add(item)
         aux_productions.append(aux)
     return aux_productions, list(terminals), list(variables)
+
+def follow():
+    pass
+
+def first():
+    pass
