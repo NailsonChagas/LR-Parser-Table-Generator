@@ -104,26 +104,60 @@ def calculate_follow(productions: list[list[str]], first_set: dict[str, list], t
 
 
 if __name__ == "__main__":
-    productions1 = [
-        "E' -> E",
-        "E -> E + n",
-        "E -> n"
+    # tirados da lista de execícios do moodle
+    test_productions = [
+        [ # First Funcionou 
+            "E' -> E",
+            "E -> E + n",
+            "E -> n"
+        ],
+        [ # First NÃO Funcionou 
+            "E -> T E'",
+            "E' -> v T E'",
+            "E -> ε",
+            "T -> F T'",
+            "T' -> \\^ F T'",
+            "T' -> ε",
+            "F -> \\¬ F",
+            "F -> id"
+        ],
+        [ # First Funcionou 
+            "S -> A B",
+            "A -> a A",
+            "A -> a",
+            "B -> b B",
+            "B -> b"
+        ],
+        [ # First Funcionou 
+            "S -> A",
+            "S -> B C",
+            "A -> a A S",
+            "A -> D",
+            "B -> b B",
+            "B -> f A C",
+            "B -> ɛ",
+            "C -> c C",
+            "C -> c",
+            "D -> g D",
+            "D -> C",
+            "D -> ɛ"
+        ],
+        [ # First NÃO Funcionou 
+            "S -> X Y Z",
+            "X -> a X b",
+            "X -> ɛ",
+            "Y -> c Y Z c X",
+            "Y -> d",
+            "Z -> e Z Y e",
+            "Z -> f"
+        ]
     ]
 
-    productions2 = [
-        "E -> T E'",
-        "E' -> v T E'",
-        "E -> ε",
-        "T -> F T'",
-        "T' -> \\^ F T'",
-        "T' -> ε",
-        "F -> \\¬ F",
-        "F -> id"
-    ]
-    productions, terminals, variables = split_productions(productions1)
-    first = calculate_first(productions, terminals, variables)
-    print(first)
-
-    productions, terminals, variables = split_productions(productions2)
-    first = calculate_first(productions, terminals, variables)
-    print(first)
+    for i, prod in enumerate(test_productions):
+        productions, terminals, variables = split_productions(prod)
+        first = calculate_first(productions, terminals, variables)
+        follow = calculate_follow(productions, first, terminals, variables)
+        print(f"------- Produções {i} -------")
+        print(prod)
+        print(f"FIRST: {first}")
+        print(f"FOLLOW: {follow}")
