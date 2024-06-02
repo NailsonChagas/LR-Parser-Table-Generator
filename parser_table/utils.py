@@ -37,10 +37,8 @@ def __first_of(symbol: str, first_set: dict[str, set], terminals: list[str]):
     Returns:
     set: O conjunto FIRST do símbolo.
     """
-    if symbol in terminals:  # Se terminal, retornar o cunjunto somente com o terminal
-        return {symbol}
-    if symbol == "ε":  # Se vazio, retornar o conjunto contendo apenas vazio
-        return {"ε"}
+    if symbol in terminals: return {symbol} # Se terminal, retornar o cunjunto somente com o terminal
+    if symbol == "ε": return {"ε"} # Se vazio, retornar o conjunto contendo apenas vazio
     return first_set[symbol]  # Se for variável, retorna o conjunto FIRST da variável
 
 def __add_to_first_set(X: str, first_set: dict[str, set], symbols_set: set):
@@ -86,8 +84,7 @@ def calculate_first(productions: list[list[str]], terminals: list[str], variable
                     break
             if add_epsilon: # todas simbolos da produção produzem ε, adicionar ε a FIRST(left)
                 updated |= __add_to_first_set(left, first_set, {"ε"})
-        if not updated: # Nenhum conjunto FIRST foi atualizado, terminar execução
-            break
+        if not updated: break # Nenhum conjunto FIRST foi atualizado, terminar execução
     return {k: list(v) for k, v in first_set.items()}
 
 def calculate_follow(productions: list[list[str]], first_set: dict[str, list], variables: list[str]):
