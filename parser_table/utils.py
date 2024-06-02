@@ -27,6 +27,37 @@ def split_productions(productions: list[str]):
         aux_productions.append(aux)
     return aux_productions, list(terminals), list(variables)
 
+def __first_of(symbol: str, first_set: dict[str, set], terminals: list[str]):
+    """
+    Retorna o conjunto FIRST de um símbolo.
+
+    Args:
+    symbol (str): O símbolo para o qual se deseja calcular o conjunto FIRST.
+
+    Returns:
+    set: O conjunto FIRST do símbolo.
+    """
+    if symbol in terminals:  # Se terminal, retornar o cunjunto somente com o terminal
+        return {symbol}
+    if symbol == "ε":  # Se vazio, retornar o conjunto contendo apenas vazio
+        return {"ε"}
+    return first_set[symbol]  # Se for variável, retorna o conjunto FIRST da variável
+
+def __add_to_first_set(X: str, first_set: dict[str, set], symbols_set: set):
+    """
+    Adiciona símbolos ao conjunto FIRST de uma variável.
+
+    Args:
+    X (str): A variável para a qual se deseja adicionar símbolos ao conjunto FIRST.
+    symbols_set (set): O conjunto de símbolos a ser adicionado ao conjunto FIRST de X.
+
+    Returns:
+    bool: True se o conjunto FIRST de X foi atualizado, False caso contrário.
+    """
+    initial = len(first_set[X])
+    first_set[X].update(symbols_set)
+    return len(first_set[X]) > initial
+
 def calculate_first(productions: list[list[str]], terminals: list[str], variables: list[str]):
     """
     Calcula o conjunto FIRST para cada variável de uma gramática.
@@ -42,50 +73,19 @@ def calculate_first(productions: list[list[str]], terminals: list[str], variable
     first_set = {var: set() for var in variables}
     aux_terminals = [t for t in terminals if t != "ε"]
 
-    def __first_of(symbol):
-        """
-        Função interna que retorna o conjunto FIRST de um símbolo.
-
-        Args:
-        symbol (str): O símbolo para o qual se deseja calcular o conjunto FIRST.
-
-        Returns:
-        set: O conjunto FIRST do símbolo.
-        """
-        if symbol in aux_terminals:  # Se terminal, retornar o cunjunto somente com o terminal
-            return {symbol}
-        if symbol == "ε":  # Se vazio, retornar o conjunto contendo apenas vazio
-            return {"ε"}
-        return first_set[symbol]  # Se for variável, retorna o conjunto FIRST da variável
-
-    def __add_to_first_set(X, symbols_set):
-        """
-        Função interna que adiciona símbolos ao conjunto FIRST de uma variável.
-
-        Args:
-        X (str): A variável para a qual se deseja adicionar símbolos ao conjunto FIRST.
-        symbols_set (set): O conjunto de símbolos a ser adicionado ao conjunto FIRST de X.
-
-        Returns:
-        bool: True se o conjunto FIRST de X foi atualizado, False caso contrário.
-        """
-        initial = len(first_set[X])
-        first_set[X].update(symbols_set)
-        return len(first_set[X]) > initial
-
     while True:
         updated = False
         for prod in productions:
             left, right = prod[0], prod[1:]
             add_epsilon = True  
             for symbol in right:
-                f = __first_of(symbol)
-                updated |= __add_to_first_set(left, f - {"ε"})
+                f = __first_of(symbol, first_set, aux_terminals)
+                updated |= __add_to_first_set(left, first_set, f - {"ε"})
                 if "ε" not in f:  # símbolo não produz ε, atualiza a flag e sai do loop
                     add_epsilon = False
                     break
             if add_epsilon: # todas simbolos da produção produzem ε, adicionar ε a FIRST(left)
-                updated |= __add_to_first_set(left, {"ε"})
+                updated |= __add_to_first_set(left, first_set, {"ε"})
         if not updated: # Nenhum conjunto FIRST foi atualizado, terminar execução
             break
     return {k: list(v) for k, v in first_set.items()}
