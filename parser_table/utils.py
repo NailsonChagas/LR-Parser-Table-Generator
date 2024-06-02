@@ -106,12 +106,12 @@ def calculate_follow(productions: list[list[str]], first_set: dict[str, list], t
 if __name__ == "__main__":
     # tirados da lista de execícios do moodle
     test_productions = [
-        [ # First Funcionou 
+        [  # First Funcionou
             "E' -> E",
             "E -> E + n",
             "E -> n"
         ],
-        [ # First NÃO Funcionou 
+        [  # First NÃO Funcionou
             "E -> T E'",
             "E' -> v T E'",
             "E -> ε",
@@ -121,14 +121,14 @@ if __name__ == "__main__":
             "F -> \\¬ F",
             "F -> id"
         ],
-        [ # First Funcionou 
+        [  # First Funcionou
             "S -> A B",
             "A -> a A",
             "A -> a",
             "B -> b B",
             "B -> b"
         ],
-        [ # First Funcionou 
+        [  # First Funcionou
             "S -> A",
             "S -> B C",
             "A -> a A S",
@@ -142,7 +142,7 @@ if __name__ == "__main__":
             "D -> C",
             "D -> ɛ"
         ],
-        [ # First NÃO Funcionou 
+        [  # First NÃO Funcionou
             "S -> X Y Z",
             "X -> a X b",
             "X -> ɛ",
