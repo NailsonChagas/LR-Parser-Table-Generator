@@ -10,11 +10,9 @@ def handle_post(parser_type):
         request.get_json()["productions"]
     )
     first_set = calculate_first(productions, terminals, variables)
-    follow_set = calculate_follow(productions, first_set, terminals, variables)
 
     return jsonify({
-        "FIRST": first_set,
-        "FOLLOW": follow_set
+        "FIRST": first_set
     })
 
 
