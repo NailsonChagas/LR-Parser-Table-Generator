@@ -54,3 +54,6 @@ test_first_set = [
         "b", "ɛ", "f"}, "S": {"ɛ", "g", "c", "a", "f", "b"}, "C": {"c"}},
     {"Z": {"e", "f"}, "S": {"c", "a", "d"}, "X": {"a", "ɛ"}, "Y": {"d", "c"}}
 ]
+
+def check(real_set: dict, calculated_set: dict):
+    return real_set.items() == calculated_set.items()

@@ -1,4 +1,4 @@
-from test_data import test_productions, test_first_set
+from test_data import test_productions, test_first_set, check
 
 
 def split_productions(productions: list[str]):
@@ -80,13 +80,10 @@ def calculate_first(productions: list[str], terminals: list[str], variables: lis
 
 
 if __name__ == "__main__":
-    def __check(real_set: dict, calculated_set: dict):
-        return real_set.items() == calculated_set.items()
-
     for i, prod in enumerate(test_productions):
         productions, terminals, variables = split_productions(prod)
         first_set = calculate_first(productions, terminals, variables)
-        passed = __check(test_first_set[i], first_set)
+        passed = check(test_first_set[i], first_set)
         print(f"------- Produções {i} -------")
         print(prod)
         print(f"FIRST Calculated Set: {first_set}")
