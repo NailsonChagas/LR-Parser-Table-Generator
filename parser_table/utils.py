@@ -76,8 +76,23 @@ def calculate_grammar_first_set(productions: list[str], variables: list[str]):
     return first_set
 
 
+def calculate_grammar_follow_set(productions: list[str], variables: list[str], first_set: dict[str, set]):
+    """
+    Calculates the Follow set for each variable in a grammar.
+
+    Parameters:
+        productions (list[str]): List of productions of the grammar.
+        variables (list[str]): List of variables of the grammar.
+        first_set (dict[str, set]): A dictionary where the keys are the variables and the values are the corresponding Follow sets.
+
+    Returns:
+        dict[str, set]: A dictionary where the keys are the variables and the values are the corresponding Follow sets.
+    """
+    pass
+
+
 if __name__ == "__main__":
-    from test_data import test_productions, test_first_set, check
+    from test_data import *
 
     for i, prod in enumerate(test_productions):
         productions, terminals, variables = split_productions(prod)
