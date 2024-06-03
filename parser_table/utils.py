@@ -88,18 +88,36 @@ def calculate_grammar_follow_set(productions: list[str], variables: list[str], f
     Returns:
         dict[str, set]: A dictionary where the keys are the variables and the values are the corresponding Follow sets.
     """
-    pass
+    follow_set = {var: set() for var in variables}
 
+    while True:
+        updated = False
+        for prod in productions:
+            left, right = prod[0], prod[1:]
+            
+            for i, symbol in enumerate(right):
+                if i == len(right) - 1: # case A -> α B
+                    pass
+                elif i < len(right) - 1: # case A -> α B β
+                    pass 
+
+        if not updated:
+            break
+    
+    return follow_set
 
 if __name__ == "__main__":
     from test_data import *
 
     for i, prod in enumerate(test_productions):
         productions, terminals, variables = split_productions(prod)
-        first_set = calculate_grammar_first_set(productions, variables)
-        passed = check(test_first_set[i], first_set)
         print(f"------- Produções {i} -------")
+        first_set = calculate_grammar_first_set(productions, variables)
+        follow_set = calculate_grammar_follow_set(productions, variables, first_set)
         print(prod)
         print(f"FIRST Calculated Set: {first_set}")
         print(f"FIRST Real Set: {test_first_set[i]}")
-        print(f"FIRST Test passed: {passed}")
+        print(f"FIRST Test passed: {check(test_first_set[i], first_set)}")
+        print(f"FOLLOW Calculated Set: {follow_set}")
+        print(f"FOLLOW Real Set: {test_follow_set[i]}")
+        print(f"FOLLOW Test passed: {check(test_follow_set[i], follow_set)}")
