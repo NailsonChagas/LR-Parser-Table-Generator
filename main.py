@@ -9,7 +9,7 @@ def handle_post(parser_type):
     productions, terminals, variables = split_productions(
         request.get_json()["productions"]
     )
-    first_set = calculate_grammar_first_set(productions, terminals, variables)
+    first_set = calculate_grammar_first_set(productions, variables)
     
     return jsonify({
         "FIRST": {k: list(v) for k, v in first_set.items()}

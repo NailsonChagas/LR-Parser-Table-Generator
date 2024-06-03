@@ -34,7 +34,7 @@ def __add_to_set(X: str, set: dict[str, set], symbols_set: set):
     return len(set[X]) > initial
 
 
-def calculate_grammar_first_set(productions: list[str], terminals: list[str], variables: list[str]):
+def calculate_grammar_first_set(productions: list[str], variables: list[str]):
     """
     Calculates the First set for each variable in a grammar.
 
@@ -81,7 +81,7 @@ if __name__ == "__main__":
 
     for i, prod in enumerate(test_productions):
         productions, terminals, variables = split_productions(prod)
-        first_set = calculate_grammar_first_set(productions, terminals, variables)
+        first_set = calculate_grammar_first_set(productions, variables)
         passed = check(test_first_set[i], first_set)
         print(f"------- Produções {i} -------")
         print(prod)

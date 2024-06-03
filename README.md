@@ -1,15 +1,15 @@
-# Gerador de Tabela de Parser SLR, LR e LALR
+# SLR, LR, and LALR Parser Table Generator
 
-## Qual o propósito deste projeto?
-O objetivo deste projeto é criar o backend de uma aplicação que irá gerar tabelas para os parsers SLR, LR e LALR.
+## What is the purpose of this project?
+This project aims to develop the backend for an application that will generate tables for SLR, LR, and LALR parsers.
 
-## Por que este projeto existe?
-Estudando a disciplina de compiladores, descobri que possuo certa dificuldade na geração das tabelas. Acredito que implementar uma ferramenta capaz de gerar as tabelas automaticamente, seguindo passo a passo do que eu faria à mão, irá me permitir entender melhor o funcionamento do algoritmo e me dará um método de checar as respostas dos exercícios que fiz e que não possuem gabaritos.
+## Why was this project initiated?
+While studying compiler theory at UTFPR, I realized that I encountered some challenges when generating parsing tables. I believe that by implementing a tool capable of automatically generating these tables, following the same steps I would take manually, I will gain a deeper understanding of the underlying algorithms. Additionally, it will provide me with a means of validating the solutions to exercises for which answer keys are unavailable.
 
-## Quais são as rotas desta API?
+## What are the routes of this API?
 - /table/<parser_type>
-    - parser_type pode ser slr, lr ou lalr
-    - O post request deve conter uma lista com as produções da linguagem, com cada símbolo separado por um espaço, exemplo:
+    - parser_type can be slr, lr, or lalr
+    - The post request must include a list of language productions, with each symbol separated by a space. For example:
         ```
         {
             "productions": [
@@ -21,11 +21,11 @@ Estudando a disciplina de compiladores, descobri que possuo certa dificuldade na
         ```
 - /execute
 
-## Comandos importantes:
-- Para iniciar o projeto:
-    1. Download do repositório: ```git clone https://github.com/NailsonChagas/LR-Parser-Table-Generator.git```
-    2. Acesse o repositório: ```cd LR-Parser-Table-Generator```
-    3. Criar ambiente virtual: ```python3 -m venv venv```
-    4. Abrir ambiente virtual: ```source ./venv/bin/activate```
-    5. Instalar requisitos: ```pip install -r requirements.txt```
-- Para salvar requisitos: ```pip freeze > requirements.txt```
+## Important commands:
+- To initialize the project:
+    1. Clone the repository: ```git clone https://github.com/NailsonChagas/LR-Parser-Table-Generator.git```
+    2. Navigate to the repository: ```cd LR-Parser-Table-Generator```
+    3. Create a virtual environment: ```python3 -m venv venv```
+    4. Activate the virtual environment: ```source ./venv/bin/activate```
+    5. Install dependencies: ```pip install -r requirements.txt```
+- To update requirements: ```pip freeze > requirements.txt```
