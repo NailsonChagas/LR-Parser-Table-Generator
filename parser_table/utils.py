@@ -1,3 +1,6 @@
+from test_data import test_productions, test_first_set
+
+
 def split_productions(productions: list[str]):
     """
     Splits the productions of a grammar into individual elements.
@@ -46,100 +49,37 @@ def calculate_first(productions: list[str], terminals: list[str], variables: lis
     Returns:
         dict[str, set]: A dictionary where the keys are the variables and the values are the corresponding First sets.
     """
-
     first_set = {var: set() for var in variables}
 
     while True:
         updated = False
         for prod in productions:
             left, right = prod[0], prod[1:]
-
             if right[0] in variables:
                 can_be_empty = True
                 for symbol in right:
                     if symbol not in variables:
                         continue
-
                     updated |= __add_to_set(
-                        left, first_set, first_set[symbol] - {"ɛ"})
+                        left, first_set, first_set[symbol] - {"ɛ"}
+                    )
                     if "ɛ" not in first_set[symbol]:
                         can_be_empty = False
                         break
-
                 if can_be_empty:
                     updated |= __add_to_set(left, first_set, set("ɛ"))
             else:
                 if len(right) == 1 and right[0] == "ɛ":
-                    # APENAS PRODUÇÂO VAZIA
                     updated |= __add_to_set(left, first_set, set("ɛ"))
-                # TERMINAL OU PRIMEIRO ELEMENTO É VAZIO
                 updated |= __add_to_set(
-                    left, first_set, set([right[0]]) - {"ɛ"})
-
+                    left, first_set, set([right[0]]) - {"ɛ"}
+                )
         if not updated:
             break
-
     return first_set
 
 
 if __name__ == "__main__":
-    test_productions = [
-        [
-            "E' -> E",
-            "E -> E \\+ n",
-            "E -> n"
-        ],
-        [
-            "E -> T E'",
-            "E' -> v T E'",
-            "E' -> ε",
-            "T -> F T'",
-            "T' -> \\^ F T'",
-            "T' -> ε",
-            "F -> \\¬ F",
-            "F -> id"
-        ],
-        [
-            "S -> A B",
-            "A -> a A",
-            "A -> a",
-            "B -> b B",
-            "B -> b"
-        ],
-        [
-            "S -> A",
-            "S -> B C",
-            "A -> a A S",
-            "A -> D",
-            "B -> b B",
-            "B -> f A C",
-            "B -> ɛ",
-            "C -> c C",
-            "C -> c",
-            "D -> g D",
-            "D -> C",
-            "D -> ɛ"
-        ],
-        [
-            "S -> X Y Z",
-            "X -> a X b",
-            "X -> ɛ",
-            "Y -> c Y Z c X",
-            "Y -> d",
-            "Z -> e Z Y e",
-            "Z -> f"
-        ]
-    ]
-    test_first_set = [
-        {"E'": {"n"}, "E": {"n"}},
-        {"E": {"\\¬", "id"}, "E'": {"v", "ε"}, "T": {
-            "\\¬", "id"}, "T'": {"ε", "\\^"}, "F": {"\\¬", "id"}},
-        {"B": {"b"}, "S": {"a"}, "A": {"a"}},
-        {"D": {"c", "ɛ", "g"}, "A": {"c", "a", "ɛ", "g"}, "B": {
-            "b", "ɛ", "f"}, "S": {"ɛ", "g", "c", "a", "f", "b"}, "C": {"c"}},
-        {"Z": {"e", "f"}, "S": {"c", "a", "d"}, "X": {"a", "ɛ"}, "Y": {"d", "c"}}
-    ]
-
     def __check(real_set: dict, calculated_set: dict):
         return real_set.items() == calculated_set.items()
 
