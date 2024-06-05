@@ -89,14 +89,15 @@ def calculate_grammar_follow_set(productions: list[str], variables: list[str], f
         dict[str, set]: A dictionary where the keys are the variables and the values are the corresponding Follow sets.
     """
     follow_set = {var: set() for var in variables}
-
+    initial = True
     while True:
         updated = False
         for i, prod in enumerate(productions):
             left, right = prod[0], prod[1:]
-            if i == 0:
+            if initial and i == 0:
                 # FOLLOW(VARIAVEL_INICIAL) := {$}
                 __add_to_set(left, follow_set, set("$"))
+                initial = False
 
             for j, symbol in enumerate(right):
                 if j == len(right) - 1:  # case A -> α B
